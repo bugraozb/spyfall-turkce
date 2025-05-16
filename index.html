@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spyfall - Türkçe</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Spyfall</h1>
+
+      <!-- Setup Screen -->
+      <div id="setup-screen">
+        <div class="form-group">
+          <label for="player-count">Oyuncu Sayısı (3-12):</label>
+          <input type="number" id="player-count" min="3" max="12" value="5" />
+        </div>
+        <div id="player-inputs"></div>
+        <div class="form-group">
+          <label for="timer">Zamanlayıcı (dakika):</label>
+          <select id="timer">
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8" selected>8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+        </div>
+        <button id="start-game" class="btn">Oyunu Başlat</button>
+      </div>
+
+      <!-- Game Screen -->
+      <div id="game-screen" class="hidden">
+        <div class="timer-container">
+          <div id="timer-display">08:00</div>
+        </div>
+        <div id="players-container" class="players-grid"></div>
+        <button id="new-game" class="btn">Yeni Oyun</button>
+        <button id="start-voting" class="btn">Oylamayı Başlat</button>
+      </div>
+
+      <!-- Voting Screen -->
+      <div id="voting-screen" class="hidden">
+        <h2>Kimin Casus Olduğunu Düşünüyorsunuz?</h2>
+        <div id="voting-options"></div>
+        <button id="submit-vote" class="btn">Oy Ver</button>
+      </div>
+
+      <!-- Results Screen -->
+      <div id="results-screen" class="hidden">
+        <h2>Oyun Sonuçları</h2>
+        <div id="results-content"></div>
+        <button id="play-again" class="btn">Tekrar Oyna</button>
+      </div>
+
+      <!-- Role Modal -->
+      <div id="role-modal" class="modal hidden">
+        <div class="modal-content">
+          <span class="close-modal">&times;</span>
+          <h2 id="modal-title">Rolün</h2>
+          <div id="modal-body"></div>
+        </div>
+      </div>
+    </div>
+
+    <script src="locations.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
