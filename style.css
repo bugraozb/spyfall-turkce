@@ -204,3 +204,23 @@ select {
     padding: 10px;
   }
 }
+#results-screen .btn {
+  margin: 10px 0;
+  font-weight: bold;
+}
+
+#replay-same-players {
+  background-color: var(--success-color);
+}
+
+#replay-same-players:hover {
+  background-color: #3e8e41;
+}
+
+#reset-game {
+  background-color: var(--danger-color);
+}
+
+#reset-game:hover {
+  background-color: #d32f2f;
+}

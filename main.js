@@ -20,6 +20,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const closeModal = document.querySelector(".close-modal");
   const timerDisplay = document.getElementById("timer-display");
   const timerSelect = document.getElementById("timer");
+  const replaySamePlayersBtn = document.getElementById("replay-same-players");
+  const resetGameBtn = document.getElementById("reset-game");
+
+  replaySamePlayersBtn.addEventListener("click", restartWithSamePlayers);
+  resetGameBtn.addEventListener("click", resetGame);
 
   // Game State
   let gameState = {
@@ -310,6 +315,56 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     resultsContent.appendChild(spyReveal);
+  }
+
+  function restartWithSamePlayers() {
+    // Spy ve location seçimini yeniden yap
+    const playerCount = gameState.players.length;
+
+    // Yeni spy ve yeni konum
+    const spyIndex = Math.floor(Math.random() * playerCount);
+    gameState.spy = gameState.players[spyIndex].id;
+
+    const randomLocationIndex = Math.floor(Math.random() * locations.length);
+    gameState.location = locations[randomLocationIndex];
+
+    // Roller güncelle
+    gameState.players.forEach((player) => {
+      if (player.id !== gameState.spy) {
+        const roles = gameState.location.roles;
+        player.role = roles[Math.floor(Math.random() * roles.length)];
+      } else {
+        delete player.role; // Casusun rolü olmamalı
+      }
+    });
+
+    // Temizleme işlemleri
+    gameState.viewedRoles = [];
+    gameState.votes = {};
+    const minutes = parseInt(timerSelect.value);
+    gameState.timeLeft = minutes * 60;
+    updateTimerDisplay();
+
+    if (gameState.timer) {
+      clearInterval(gameState.timer);
+    }
+
+    gameState.timer = setInterval(() => {
+      gameState.timeLeft--;
+      updateTimerDisplay();
+      if (gameState.timeLeft <= 0) {
+        clearInterval(gameState.timer);
+        startVoting();
+      }
+    }, 1000);
+
+    // Ekran geçişi
+    resultsScreen.classList.add("hidden");
+    setupScreen.classList.add("hidden");
+    votingScreen.classList.add("hidden");
+    gameScreen.classList.remove("hidden");
+
+    renderPlayerCards();
   }
 
   // Reset the game
